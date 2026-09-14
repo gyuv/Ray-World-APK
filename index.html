@@ -389,8 +389,10 @@ header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .35s ea
 .trending:hover .prow{animation-play-state:paused}
 .pcard{flex:0 0 auto;width:132px;cursor:pointer}
 .pcard .art{height:190px;border-radius:14px;border:1px solid var(--line-strong);position:relative;overflow:hidden;
-  box-shadow:0 22px 44px -28px #000;transition:transform .3s ease,box-shadow .3s}
-.pcard .art::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(4,6,13,.9),transparent 52%)}
+  box-shadow:0 22px 44px -28px #000;transition:transform .3s ease,box-shadow .3s;
+  background:linear-gradient(155deg,#2a1140,#0a0d18)}
+.pcard .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.pcard .art::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(4,6,13,.9),transparent 52%)}
 .pcard .art .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.7);z-index:2;
   width:40px;height:40px;border-radius:50%;background:var(--neon);display:grid;place-items:center;color:#fff;
   font-size:14px;opacity:0;transition:opacity .3s,transform .3s;box-shadow:var(--shadow-neon)}
@@ -973,13 +975,29 @@ platBtns.forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('[data-steps="'+plat+'"] .reveal').forEach(r=>r.classList.add('in'));
 }));
 
-/* ---------- trending poster rows (built from data) ---------- */
+/* ---------- trending poster rows: live from TMDB via /api/trending ---------- */
+/* Fallback titles (shown as branded gradient cards if the API isn't configured
+   or can't be reached — e.g. when opening the file directly). */
 const TRENDING=["Spider-Man: Brand New Day","Coyote vs. Acme","Colony","The Odyssey","Mutiny","Moana","The Mongoose","Drawn Together","Mayday","The Runner","Ghost in the Cell","Shape of My Heart","Clash of the Thundermans","Toy Story 5","Obsession","The Last Sunrise","Vishwanath & Sons","The End of Oak Street","Rage of Stars","Zip Wire"];
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function pcard(title,i){return '<div class="pcard"><div class="art pa'+((i%6)+1)+'"><span class="hd">HD</span><span class="pl">▶</span></div><div class="tt">'+esc(title)+'</div></div>';}
-function fillRow(el,list){if(!el)return;const html=list.map(pcard).join('');el.innerHTML=html+html;} // duplicated for a seamless loop
-fillRow(document.getElementById('prowA'),TRENDING);
-fillRow(document.getElementById('prowB'),TRENDING.slice().reverse());
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function gradientCard(title,i){return '<div class="pcard"><div class="art pa'+((i%6)+1)+'"><span class="hd">HD</span><span class="pl">▶</span></div><div class="tt">'+esc(title)+'</div></div>';}
+function posterCard(item){const t=esc(item.title||'');return '<div class="pcard"><div class="art"><img loading="lazy" decoding="async" src="'+esc(item.poster)+'" alt="'+t+'"><span class="hd">HD</span><span class="pl">▶</span></div><div class="tt">'+t+'</div></div>';}
+function fillRow(el,cards){if(!el)return;const h=cards.join('');el.innerHTML=h+h;} // duplicated for a seamless loop
+async function loadTrending(){
+  const rowA=document.getElementById('prowA'), rowB=document.getElementById('prowB');
+  fillRow(rowA,TRENDING.map(gradientCard));
+  fillRow(rowB,TRENDING.slice().reverse().map(gradientCard));
+  try{
+    const r=await fetch('/api/trending',{headers:{accept:'application/json'}});
+    if(!r.ok)return;
+    const data=await r.json();
+    const items=(data&&data.results)||[];
+    if(items.length<6)return; // keep the branded fallback
+    fillRow(rowA,items.map(posterCard));
+    fillRow(rowB,items.slice().reverse().map(posterCard));
+  }catch(e){/* offline / file:// — keep the gradient fallback */}
+}
+loadTrending();
 
 /* ============================================================
    Heavy motion — desktop / capable devices only

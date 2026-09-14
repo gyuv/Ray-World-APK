@@ -33,10 +33,28 @@ const APP_SIZE = "~ 28 MB";
   ```
   Every `Download APK` button on the page updates automatically.
 
+## Show real movie posters (TMDB)
+
+The **Trending now** row pulls live posters from TMDB through a tiny serverless
+function (`api/trending.js`) so your API key stays on the server — never in the
+repo or the browser. To turn it on:
+
+1. In Vercel → your project → **Settings → Environment Variables**, add **one**
+   (the same credential RaY-World uses):
+   - `TMDB_ACCESS_TOKEN` — a TMDB **v4** read access token (recommended), or
+   - `TMDB_API_KEY` — a TMDB **v3** API key
+2. Redeploy.
+
+The page calls `/api/trending` (same origin) and renders real posters. Until a
+key is set — or if TMDB is unreachable — it falls back to branded gradient
+cards, so it never looks broken. Locally (opening `index.html` as a file) there's
+no server, so you'll see the gradient fallback; deploy to Vercel to see posters.
+
 ## Structure
 
 ```
 index.html               # the entire page (HTML + CSS + JS inline)
+api/trending.js          # serverless: TMDB trending posters (key stays server-side)
 vercel.json              # cleanUrls + long-cache headers for /assets
 assets/
   app-icon.png           # 512² app icon (hero orbit, CTA, apple-touch-icon)
