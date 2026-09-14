@@ -292,10 +292,10 @@ header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .35s ea
 .feat-card{padding:28px;border-radius:var(--radius);border:1px solid var(--line);
   background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.015));
   position:relative;overflow:hidden;transition:transform .3s ease,border-color .3s}
-.feat-card::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+.feat-card::before,.cat::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,31,143,.16),transparent 70%);
   top:var(--my,50%);left:var(--mx,50%);transform:translate(-50%,-50%);opacity:0;transition:opacity .35s;pointer-events:none}
-.feat-card:hover::before{opacity:1}
+.feat-card:hover::before,.cat:hover::before{opacity:1}
 .feat-card:hover{transform:translateY(-5px);border-color:var(--line-strong)}
 .feat-ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;
   background:linear-gradient(160deg,rgba(255,31,143,.2),rgba(124,58,237,.16));border:1px solid var(--line-strong);color:var(--rose)}
@@ -308,24 +308,113 @@ header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .35s ea
    Showcase / screens
    ============================================================ */
 .showcase{padding:70px 0}
-.screens{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;perspective:1600px}
-.screen-card{width:230px;border-radius:26px;overflow:hidden;border:1px solid var(--line-strong);
+.screens{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;perspective:1600px}
+.screen-card{width:250px;border-radius:28px;overflow:hidden;border:1px solid var(--line-strong);
   background:linear-gradient(160deg,#12131f,#050609);box-shadow:0 30px 70px -34px #000;
   transition:transform .4s ease,box-shadow .4s;will-change:transform}
 .screen-card:hover{transform:translateY(-10px) rotateX(4deg);box-shadow:0 40px 90px -30px rgba(255,31,143,.4)}
-.screen-card .cap{padding:16px 18px}
+.screen-card .cap{padding:15px 18px 18px}
 .screen-card .cap b{font-size:15px;display:block;margin-bottom:3px}
 .screen-card .cap span{font-size:12.5px;color:var(--muted)}
-.sc-art{height:300px;position:relative;overflow:hidden}
-.sc-art .poster{position:absolute;border-radius:8px;border:1px solid var(--line)}
-.sc-a{background:radial-gradient(130% 100% at 50% 0%,#1b0b26,#04060d 72%)}
-.sc-b{background:radial-gradient(130% 100% at 50% 0%,#0b0b26,#04060d 72%)}
-.sc-c{background:radial-gradient(130% 100% at 50% 0%,#260b1a,#04060d 72%)}
+
+/* mini app-UI rendered inside each screen */
+.sc-art{height:372px;position:relative;overflow:hidden;padding:14px 12px 0;
+  background:radial-gradient(130% 90% at 50% 0%,#170a20,#04060d 70%);display:flex;flex-direction:column}
+.mui-top{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#cdc9dc;font-weight:600;margin-bottom:9px;padding:0 3px}
+.mui-search{height:30px;border-radius:9px;background:rgba(255,255,255,.06);border:1px solid var(--line);
+  display:flex;align-items:center;gap:7px;padding:0 10px;color:var(--dim);font-size:10px;margin-bottom:11px}
+.mui-search svg{width:12px;height:12px;color:var(--rose);flex:0 0 auto}
+.mui-hero{height:118px;border-radius:13px;position:relative;overflow:hidden;margin-bottom:12px;
+  border:1px solid var(--line-strong);display:flex;flex-direction:column;justify-content:flex-end;padding:11px}
+.mui-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(4,6,13,.75),transparent 60%)}
+.mui-hero .tag,.mui-hero b{position:relative;z-index:2}
+.mui-hero .tag{align-self:flex-start;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 7px;border-radius:5px;background:rgba(0,0,0,.55);color:#fff;margin-bottom:6px}
+.mui-hero b{font-size:15px;color:#fff;font-family:'Space Grotesk'}
+.mui-rt{display:flex;justify-content:space-between;align-items:center;font-size:9.5px;color:#cdc9dc;font-weight:700;margin:0 2px 7px}
+.mui-rt span{color:var(--rose)}
+.mui-row{display:flex;gap:7px;margin-bottom:12px}
+.poster{flex:0 0 auto;border-radius:8px;border:1px solid var(--line);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(4,6,13,.92),transparent 52%)}
+.poster b{position:relative;z-index:2;font-size:7.5px;color:#fff;font-weight:600;padding:4px 5px;line-height:1.15}
+.poster .star{position:absolute;top:4px;right:4px;z-index:2;font-size:7px;color:#ffd75e;background:rgba(0,0,0,.55);border-radius:4px;padding:1px 4px;font-weight:700}
+.row-3 .poster{width:66px;height:96px}
+.pa1{background:linear-gradient(155deg,#ff1f8f,#4c1d95)}
+.pa2{background:linear-gradient(155deg,#7c3aed,#0a0d18)}
+.pa3{background:linear-gradient(155deg,#b026ff,#160a1f)}
+.pa4{background:linear-gradient(155deg,#ff5aa0,#3b0a5c)}
+.pa5{background:linear-gradient(155deg,#1f6bff,#0a0d18)}
+.pa6{background:linear-gradient(155deg,#ff2d78,#7c3aed)}
+/* search results */
+.mui-result{display:flex;gap:9px;align-items:center;margin-bottom:11px}
+.mui-result .th{flex:0 0 auto;width:38px;height:54px;border-radius:6px;border:1px solid var(--line)}
+.mui-result .meta{flex:1;min-width:0}
+.mui-result .meta i{display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.15);margin-bottom:7px}
+.mui-result .meta i.w1{width:82%}
+.mui-result .meta i.w2{width:48%;background:rgba(255,90,160,.45)}
+.mui-result .meta .mc{display:inline-block;font-size:7.5px;color:var(--rose);border:1px solid var(--line-strong);border-radius:5px;padding:2px 6px}
+/* browse */
+.mui-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.mui-chips span{font-size:8.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.mui-chips span.on{color:#fff;background:var(--neon);border-color:transparent}
+.mui-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.mui-grid .poster{width:100%;height:88px}
+
+/* ============================================================
+   Endless content — category grid
+   ============================================================ */
+.endless{padding:70px 0}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat{padding:24px 20px;border-radius:var(--radius);border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.015));position:relative;overflow:hidden;
+  transition:transform .3s ease,border-color .3s}
+.cat:hover{transform:translateY(-5px);border-color:var(--line-strong)}
+.cat-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:16px;position:relative;z-index:1;
+  background:linear-gradient(160deg,rgba(255,31,143,.2),rgba(124,58,237,.16));border:1px solid var(--line-strong);color:var(--rose)}
+.cat-ic svg{width:22px;height:22px}
+.cat h3{font-size:17px;margin-bottom:4px;position:relative;z-index:1}
+.cat .cnt{font-family:'Space Grotesk';font-weight:700;font-size:15px;position:relative;z-index:1;
+  background:var(--neon);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ============================================================
+   Trending now — auto-scrolling poster rows
+   ============================================================ */
+.trending{padding:60px 0 84px}
+.tmask{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);display:flex;flex-direction:column;gap:18px}
+.prow{display:flex;gap:16px;width:max-content;will-change:transform}
+.prow-a{animation:scrollx 64s linear infinite}
+.prow-b{animation:scrollx 78s linear infinite reverse}
+.trending:hover .prow{animation-play-state:paused}
+.pcard{flex:0 0 auto;width:132px;cursor:pointer}
+.pcard .art{height:190px;border-radius:14px;border:1px solid var(--line-strong);position:relative;overflow:hidden;
+  box-shadow:0 22px 44px -28px #000;transition:transform .3s ease,box-shadow .3s}
+.pcard .art::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(4,6,13,.9),transparent 52%)}
+.pcard .art .pl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.7);z-index:2;
+  width:40px;height:40px;border-radius:50%;background:var(--neon);display:grid;place-items:center;color:#fff;
+  font-size:14px;opacity:0;transition:opacity .3s,transform .3s;box-shadow:var(--shadow-neon)}
+.pcard .art .hd{position:absolute;top:8px;right:8px;z-index:2;font-size:8px;font-weight:700;letter-spacing:.08em;
+  color:#fff;background:rgba(0,0,0,.55);border:1px solid var(--line-strong);border-radius:5px;padding:2px 6px}
+.pcard:hover .art{transform:translateY(-8px);box-shadow:0 30px 60px -26px rgba(255,31,143,.5)}
+.pcard:hover .pl{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.pcard .tt{margin-top:10px;font-size:12.5px;color:var(--muted);font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:132px}
 
 /* ============================================================
    Install steps
    ============================================================ */
 .install{padding:70px 0}
+.plat-toggle{display:inline-flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:15px;background:var(--glass);margin-bottom:32px}
+.plat-toggle button{font-family:'Inter';font-size:14px;font-weight:600;color:var(--muted);background:none;border:none;
+  cursor:pointer;padding:10px 20px;border-radius:11px;display:inline-flex;align-items:center;gap:9px;transition:color .2s,background .3s,box-shadow .3s}
+.plat-toggle button svg{width:16px;height:16px}
+.plat-toggle button.active{color:#fff;background:var(--neon);box-shadow:0 12px 30px -14px rgba(255,31,143,.7)}
+.ios-note{margin-top:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:16px 20px;border-radius:16px;border:1px dashed var(--line-strong);background:rgba(255,255,255,.025)}
+.ios-note p{color:var(--muted);font-size:14px;margin:0}
+.ios-note .share{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  border:1px solid var(--line-strong);background:var(--glass);color:var(--rose)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
 .step{padding:30px 26px;border-radius:var(--radius);border:1px solid var(--line);background:var(--glass);position:relative}
 .step .n{font-family:'Space Grotesk';font-size:44px;font-weight:700;line-height:1;
@@ -385,7 +474,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 .reveal[data-d="3"]{transition-delay:.24s}
 
 /* skip rendering offscreen sections until they scroll near (huge scroll win) */
-.stats,.showcase,.install,.ctaband,.faq,footer{content-visibility:auto;contain-intrinsic-size:auto 720px}
+.stats,.endless,.trending,.showcase,.install,.ctaband,.faq,footer{content-visibility:auto;contain-intrinsic-size:auto 720px}
 
 /* ============================================================
    Responsive
@@ -405,6 +494,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   .nav-cta .btn-ghost{display:none}
   .menu-btn{display:block}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
   .feat-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
   .step .conn{display:none}
@@ -436,10 +526,10 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     </a>
     <nav class="nav-links">
       <a href="#features">Features</a>
-      <a href="#screens">Screens</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#trending">Trending</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
-      <a href="https://rayworld.vercel.app/" target="_blank" rel="noopener">Website ↗</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-ghost" href="https://rayworld.vercel.app/" target="_blank" rel="noopener">Open Web App</a>
@@ -460,10 +550,10 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
   <a href="#features">Features</a>
-  <a href="#screens">Screens</a>
+  <a href="#catalog">Catalog</a>
+  <a href="#trending">Trending</a>
   <a href="#install">Install</a>
   <a href="#faq">FAQ</a>
-  <a href="https://rayworld.vercel.app/" target="_blank" rel="noopener">Website ↗</a>
   <a class="btn btn-primary" href="#" data-dl>Download APK</a>
 </div>
 
@@ -599,6 +689,38 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   </div>
 </div></section>
 
+<!-- ============ ENDLESS CONTENT ============ -->
+<section class="endless" id="catalog"><div class="wrap">
+  <div class="section-head reveal" style="max-width:680px">
+    <span class="eyebrow">Endless content</span>
+    <h2>One app, <span class="grad-text">every mood</span>.</h2>
+    <p>From blockbuster movies to live sports, discover content for every mood — all in one Tamil-first place.</p>
+  </div>
+  <div class="cat-grid">
+    <article class="cat reveal"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 5v14M16 5v14"/></svg></div><h3>Movies</h3><div class="cnt">400,000+</div></article>
+    <article class="cat reveal" data-d="1"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 3l4 3 4-3"/></svg></div><h3>TV Series</h3><div class="cnt">400,000+</div></article>
+    <article class="cat reveal" data-d="2"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12v3a6 6 0 01-12 0z"/><path d="M6 6H4a2 2 0 002 4M18 6h2a2 2 0 01-2 4M9 20h6M12 13v4"/></svg></div><h3>Live Sports</h3><div class="cnt">All Leagues</div></article>
+    <article class="cat reveal" data-d="3"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></div><h3>Music</h3><div class="cnt">Unlimited</div></article>
+    <article class="cat reveal"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h13v14H6a2 2 0 01-2-2zM17 8h3v9a2 2 0 01-2 2M7 9h7M7 13h7M7 17h4"/></svg></div><h3>News</h3><div class="cnt">50+ Channels</div></article>
+    <article class="cat reveal" data-d="1"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z"/></svg></div><h3>Kids</h3><div class="cnt">Safe Content</div></article>
+    <article class="cat reveal" data-d="2"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 11v2M6 12h2M15.5 11.5h.01M18 13.5h.01"/></svg></div><h3>Gaming</h3><div class="cnt">Live Streams</div></article>
+    <article class="cat reveal" data-d="3"><div class="cat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg></div><h3>International</h3><div class="cnt">100+ Countries</div></article>
+  </div>
+</div></section>
+
+<!-- ============ TRENDING NOW ============ -->
+<section class="trending" id="trending"><div class="wrap">
+  <div class="section-head reveal" style="max-width:680px">
+    <span class="eyebrow">Trending now</span>
+    <h2>Fresh drops, <span class="chrome-text">every day</span>.</h2>
+    <p>Fresh content added daily. Stay up to date with the latest movies and series.</p>
+  </div>
+</div>
+<div class="tmask">
+  <div class="prow prow-a" id="prowA"></div>
+  <div class="prow prow-b" id="prowB"></div>
+</div></section>
+
 <!-- ============ SHOWCASE ============ -->
 <section class="showcase" id="screens"><div class="wrap">
   <div class="section-head reveal">
@@ -607,16 +729,55 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     <p>Hover the screens for a feel of the motion. The real thing is even smoother.</p>
   </div>
   <div class="screens">
+    <!-- HOME -->
     <div class="screen-card reveal">
-      <div class="sc-art sc-a"></div>
+      <div class="sc-art">
+        <div class="mui-top"><span>9:41</span><span>RaY World</span><span>◐ ▮▮▮</span></div>
+        <div class="mui-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg> Search movies, series, people…</div>
+        <div class="mui-hero pa1"><span class="tag">Tamil · Featured</span><b>Vaanam</b></div>
+        <div class="mui-rt">Trending in Tamil <span>See all</span></div>
+        <div class="mui-row row-3">
+          <div class="poster pa2"><span class="star">★8.4</span><b>Kadal</b></div>
+          <div class="poster pa3"><span class="star">★7.9</span><b>Monsoon</b></div>
+          <div class="poster pa4"><span class="star">★8.1</span><b>Chola</b></div>
+        </div>
+        <div class="mui-rt">Top rated <span>See all</span></div>
+        <div class="mui-row row-3">
+          <div class="poster pa5"><span class="star">★9.0</span><b>Neon City</b></div>
+          <div class="poster pa6"><span class="star">★8.7</span><b>Ravan</b></div>
+          <div class="poster pa2"><span class="star">★8.2</span><b>Ember</b></div>
+        </div>
+      </div>
       <div class="cap"><b>Home</b><span>Tamil-first rails & hero</span></div>
     </div>
+    <!-- SEARCH -->
     <div class="screen-card reveal" data-d="1">
-      <div class="sc-art sc-b"></div>
+      <div class="sc-art">
+        <div class="mui-top"><span>9:41</span><span>Search</span><span>◐ ▮▮▮</span></div>
+        <div class="mui-search" style="border-color:var(--line-strong);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg> chola<span style="margin-left:auto;color:var(--dim)">✕</span></div>
+        <div class="mui-rt">42 results <span>Movies · TV · People</span></div>
+        <div class="mui-result"><span class="th pa4"></span><div class="meta"><i class="w1"></i><i class="w2"></i><span class="mc">Movie · Tamil · 2024</span></div></div>
+        <div class="mui-result"><span class="th pa1"></span><div class="meta"><i class="w1"></i><i class="w2"></i><span class="mc">Movie · Tamil · 2019</span></div></div>
+        <div class="mui-result"><span class="th pa6"></span><div class="meta"><i class="w1"></i><i class="w2"></i><span class="mc">Series · 2 seasons</span></div></div>
+        <div class="mui-result"><span class="th pa3"></span><div class="meta"><i class="w1"></i><i class="w2"></i><span class="mc">Person · Director</span></div></div>
+      </div>
       <div class="cap"><b>Search</b><span>Universal, typo-tolerant</span></div>
     </div>
+    <!-- BROWSE -->
     <div class="screen-card reveal" data-d="2">
-      <div class="sc-art sc-c"></div>
+      <div class="sc-art">
+        <div class="mui-top"><span>9:41</span><span>Browse</span><span>◐ ▮▮▮</span></div>
+        <div class="mui-chips"><span class="on">Movies</span><span>Tamil</span><span>Action</span><span>2024</span><span>★ 7+</span></div>
+        <div class="mui-rt">128 titles <span>Sort ▾</span></div>
+        <div class="mui-grid">
+          <div class="poster pa1"><span class="star">★8.6</span><b>Vaanam</b></div>
+          <div class="poster pa5"><span class="star">★8.0</span><b>Kadal</b></div>
+          <div class="poster pa3"><span class="star">★7.8</span><b>Chola</b></div>
+          <div class="poster pa6"><span class="star">★8.9</span><b>Neon</b></div>
+          <div class="poster pa2"><span class="star">★8.3</span><b>Ravan</b></div>
+          <div class="poster pa4"><span class="star">★7.6</span><b>Ember</b></div>
+        </div>
+      </div>
       <div class="cap"><b>Browse</b><span>Full-catalog filtering</span></div>
     </div>
   </div>
@@ -627,12 +788,37 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   <div class="section-head reveal">
     <span class="eyebrow">Get started</span>
     <h2>Installed in <span class="grad-text">under a minute</span>.</h2>
-    <p>Not on the Play Store yet — so it's a quick one-time sideload. Here's exactly what to do.</p>
+    <p>Pick your device — a quick one-time setup either way, then it lives on your home screen like any app.</p>
   </div>
-  <div class="steps">
+
+  <div class="plat-toggle reveal" role="tablist">
+    <button data-plat="android" class="active" role="tab" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M11 18h2"/></svg>
+      Android
+    </button>
+    <button data-plat="ios" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 1.9c0 1-.4 2-1.1 2.8-.8.9-2 1.5-3.1 1.4-.1-1 .4-2.1 1.1-2.9.8-.8 2-1.4 3.1-1.3zM20.5 17c-.3.8-.7 1.4-1.1 2.1-.6 1-1.2 1.6-1.7 2-.7.7-1.4 1-2.2 1-.6 0-1.3-.2-2.1-.5-.8-.3-1.5-.5-2.1-.5-.7 0-1.4.2-2.2.5-.8.3-1.4.5-1.9.5-.8 0-1.6-.3-2.3-1-.5-.5-1.2-1.2-1.8-2.1-.7-1-1.3-2.2-1.7-3.6-.4-1.5-.4-3 0-4.4.3-1.1.8-2 1.6-2.7.7-.6 1.5-1 2.4-1 .6 0 1.3.2 2.2.6.9.3 1.4.5 1.7.5.2 0 .8-.2 1.9-.6.9-.4 1.7-.5 2.4-.5 1.8.1 3.1.8 4 2.1-1.6.9-2.4 2.2-2.4 3.9 0 1.3.5 2.4 1.4 3.3.4.4.9.7 1.4.9z"/></svg>
+      iPhone / iPad
+    </button>
+  </div>
+
+  <!-- ANDROID -->
+  <div class="steps" data-steps="android">
     <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Download the APK</h3><p>Tap <b>Download APK</b> to grab the latest signed build straight from GitHub Releases.</p></div>
     <div class="step reveal" data-d="1"><span class="n">02</span><span class="conn"></span><h3>Allow the install</h3><p>Open the file. If Android asks, tap <b>Settings → Allow from this source</b>. It's a one-time toggle.</p></div>
-    <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open & enjoy</h3><p>Tap <b>Install</b>, then open RaY World from your home screen. Discover • Watch • Enjoy.</p></div>
+    <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open &amp; enjoy</h3><p>Tap <b>Install</b>, then open RaY World from your home screen. Discover • Watch • Enjoy.</p></div>
+  </div>
+
+  <!-- iOS -->
+  <div class="steps" data-steps="ios" hidden>
+    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Open in Safari</h3><p>Visit <b>rayworld.vercel.app</b> in <b>Safari</b>. Add to Home Screen only works in Safari — not Chrome.</p></div>
+    <div class="step reveal" data-d="1"><span class="n">02</span><span class="conn"></span><h3>Tap Share → Add to Home Screen</h3><p>Tap the <b>Share</b> button (the square with an ↑) in the toolbar, then scroll down and choose <b>Add to Home Screen</b>.</p></div>
+    <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open &amp; enjoy</h3><p>Tap <b>Add</b>, then launch RaY World from your home screen — it runs full-screen, just like a native app.</p></div>
+  </div>
+
+  <div class="ios-note reveal" data-steps="ios" hidden>
+    <span class="share"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a1 1 0 001 1h12a1 1 0 001-1v-7"/></svg></span>
+    <p>No App Store needed — the iOS install is a Safari <b>web app</b> (PWA). It opens full-screen, keeps your watchlist, and updates itself. <a href="https://rayworld.vercel.app/" target="_blank" rel="noopener" style="color:var(--rose);font-weight:600">Open in Safari ↗</a></p>
   </div>
 </div></section>
 
@@ -664,7 +850,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     <div class="qa reveal"><button>Do I need an account?<span class="ico"></span></button><div class="ans"><p>No account required to browse and search. Your watchlist and continue-watching are stored on your device, with a schema ready for optional account sync later.</p></div></div>
     <div class="qa reveal"><button>Does it stream pirated content?<span class="ico"></span></button><div class="ans"><p>No. RaY World is a discovery platform. It ships without bundled streams, never scrapes or proxies unauthorized sources, and plays only authorized previews where available. Metadata is provided by TMDB.</p></div></div>
     <div class="qa reveal"><button>How do I update to a new version?<span class="ico"></span></button><div class="ans"><p>Just download the newest APK from this page and install over the top — your watchlist stays put. We'll keep publishing new builds to GitHub Releases.</p></div></div>
-    <div class="qa reveal"><button>Is there an iPhone version?<span class="ico"></span></button><div class="ans"><p>Not yet — this page is the Android build. On any device you can always use the full web app at rayworld.vercel.app.</p></div></div>
+    <div class="qa reveal"><button>Is there an iPhone version?<span class="ico"></span></button><div class="ans"><p>The APK is Android-only, but iPhone &amp; iPad get the full experience: open <b>rayworld.vercel.app</b> in <b>Safari</b> and choose <b>Add to Home Screen</b> (see the iPhone / iPad tab in the install guide above). It then runs full-screen like a native app, watchlist and all.</p></div></div>
   </div>
 </div></section>
 
@@ -770,12 +956,30 @@ document.querySelectorAll('.qa').forEach(qa=>{
   });
 });
 
-/* feature-card local glow — passive, only fires while hovering a card */
-document.querySelectorAll('.feat-card').forEach(c=>{
+/* feature / category card local glow — passive, only fires while hovering a card */
+document.querySelectorAll('.feat-card,.cat').forEach(c=>{
   c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();
     c.style.setProperty('--mx',(e.clientX-r.left)+'px');
     c.style.setProperty('--my',(e.clientY-r.top)+'px');},{passive:true});
 });
+
+/* ---------- install platform toggle (Android / iOS) ---------- */
+const platBtns=document.querySelectorAll('.plat-toggle button');
+const platParts=document.querySelectorAll('[data-steps]');
+platBtns.forEach(btn=>btn.addEventListener('click',()=>{
+  const plat=btn.dataset.plat;
+  platBtns.forEach(b=>{const on=b===btn;b.classList.toggle('active',on);b.setAttribute('aria-selected',on);});
+  platParts.forEach(el=>{el.hidden = el.dataset.steps!==plat;});
+  document.querySelectorAll('[data-steps="'+plat+'"] .reveal').forEach(r=>r.classList.add('in'));
+}));
+
+/* ---------- trending poster rows (built from data) ---------- */
+const TRENDING=["Spider-Man: Brand New Day","Coyote vs. Acme","Colony","The Odyssey","Mutiny","Moana","The Mongoose","Drawn Together","Mayday","The Runner","Ghost in the Cell","Shape of My Heart","Clash of the Thundermans","Toy Story 5","Obsession","The Last Sunrise","Vishwanath & Sons","The End of Oak Street","Rage of Stars","Zip Wire"];
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function pcard(title,i){return '<div class="pcard"><div class="art pa'+((i%6)+1)+'"><span class="hd">HD</span><span class="pl">▶</span></div><div class="tt">'+esc(title)+'</div></div>';}
+function fillRow(el,list){if(!el)return;const html=list.map(pcard).join('');el.innerHTML=html+html;} // duplicated for a seamless loop
+fillRow(document.getElementById('prowA'),TRENDING);
+fillRow(document.getElementById('prowB'),TRENDING.slice().reverse());
 
 /* ============================================================
    Heavy motion — desktop / capable devices only
