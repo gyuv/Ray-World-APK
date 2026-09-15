@@ -318,15 +318,33 @@ header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .35s ea
 /* ============================================================
    Showcase / screens
    ============================================================ */
-.showcase{padding:70px 0}
-.screens{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;perspective:1600px}
+.showcase{padding:70px 0 84px}
 .screen-card{width:250px;border-radius:28px;overflow:hidden;border:1px solid var(--line-strong);
-  background:linear-gradient(160deg,#12131f,#050609);box-shadow:0 30px 70px -34px #000;
-  transition:transform .4s ease,box-shadow .4s;will-change:transform}
-.screen-card:hover{transform:translateY(-10px) rotateX(4deg);box-shadow:0 40px 90px -30px rgba(255,31,143,.4)}
-.screen-card .cap{padding:15px 18px 18px}
-.screen-card .cap b{font-size:15px;display:block;margin-bottom:3px}
-.screen-card .cap span{font-size:12.5px;color:var(--muted)}
+  background:linear-gradient(160deg,#12131f,#050609);box-shadow:0 30px 70px -34px #000}
+
+/* ---- coverflow carousel ---- */
+.cf{position:relative;height:474px;margin-top:14px;perspective:1800px;overflow:hidden}
+.cf-stage{position:absolute;inset:0}
+.cf-slide{position:absolute;left:50%;top:50%;width:250px;
+  transform:translate(-50%,-50%);opacity:0;transform-style:preserve-3d;cursor:pointer;
+  transition:transform .7s cubic-bezier(.4,.05,.2,1),opacity .6s ease,filter .6s ease;
+  will-change:transform,opacity}
+.cf .screen-card{width:250px;pointer-events:none}
+.cf .sc-art{position:relative}
+.sc-art .shot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:7}
+.cf-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--line-strong);background:rgba(8,10,18,.6);backdrop-filter:blur(8px);color:#fff;
+  font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
+.cf-nav:hover{background:var(--glass-2);transform:translateY(-50%) scale(1.08)}
+.cf-nav:active{transform:translateY(-50%) scale(.94)}
+.cf-prev{left:10px}.cf-next{right:10px}
+.cf-cap{text-align:center;margin-top:6px;min-height:44px}
+.cf-cap b{display:block;font-family:'Space Grotesk';font-size:19px;color:#fff}
+.cf-cap span{color:var(--muted);font-size:13.5px}
+.cf-dots{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.cf-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.24);
+  padding:0;cursor:pointer;transition:all .3s}
+.cf-dots button.on{background:var(--neon);width:24px;border-radius:4px}
 
 /* mini app-UI rendered inside each screen */
 .sc-art{height:392px;position:relative;overflow:hidden;padding:14px 12px 0;
@@ -764,83 +782,96 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   <div class="prow prow-b" id="prowB"></div>
 </div></section>
 
-<!-- ============ SHOWCASE ============ -->
+<!-- ============ SHOWCASE (coverflow) ============ -->
 <section class="showcase" id="screens"><div class="wrap">
-  <div class="section-head reveal">
-    <span class="eyebrow">A look inside</span>
+  <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+    <span class="eyebrow" style="justify-content:center">A look inside</span>
     <h2>Cinematic on <span class="chrome-text">every screen</span>.</h2>
-    <p>Hover the screens for a feel of the motion. The real thing is even smoother.</p>
+    <p style="margin-inline:auto">An auto-playing tour of the app — the centre screen leads, the next and previous peek in from the sides.</p>
   </div>
-  <div class="screens">
-    <!-- HOME -->
-    <div class="screen-card reveal">
-      <div class="sc-art">
-        <div class="mui-top"><span>9:41</span><span>RaY World</span><span>⌕ ☰</span></div>
-        <div class="mui-feature-lg pa4">
-          <span class="mui-badge">Featured · Movie</span>
-          <div class="mui-title" style="font-size:21px">MANDAADI</div>
-          <div class="mui-meta"><span class="st">★9.0</span><span>2026</span><span>· Action · Drama</span></div>
-          <div class="mui-btnrow"><span class="mui-watch">▶ Watch Now</span><span class="mui-ghost">More Info</span></div>
-        </div>
-        <div class="mui-plat">
-          <div class="pl-t">Explore across platforms</div>
-          <div class="pls">
-            <i><b class="pf-netflix"></b>Netflix</i>
-            <i><b class="pf-prime"></b>Prime</i>
-            <i><b class="pf-disney"></b>Disney+</i>
-            <i><b class="pf-sun"></b>Sun NXT</i>
+
+  <div class="cf" id="cf">
+    <div class="cf-stage" id="cfStage">
+      <!-- HOME -->
+      <div class="cf-slide" data-title="Home" data-sub="Featured hero · platforms · rails">
+        <div class="screen-card">
+          <div class="sc-art">
+            <img class="shot-img" src="assets/screens/home.png" alt="RaY World — Home" onerror="this.remove()" />
+            <div class="mui-top"><span>9:41</span><span>RaY World</span><span>⌕ ☰</span></div>
+            <div class="mui-feature-lg pa4">
+              <span class="mui-badge">Featured · Movie</span>
+              <div class="mui-title" style="font-size:21px">MANDAADI</div>
+              <div class="mui-meta"><span class="st">★9.0</span><span>2026</span><span>· Action · Drama</span></div>
+              <div class="mui-btnrow"><span class="mui-watch">▶ Watch Now</span><span class="mui-ghost">More Info</span></div>
+            </div>
+            <div class="mui-plat">
+              <div class="pl-t">Explore across platforms</div>
+              <div class="pls">
+                <i><b class="pf-netflix"></b>Netflix</i>
+                <i><b class="pf-prime"></b>Prime</i>
+                <i><b class="pf-disney"></b>Disney+</i>
+                <i><b class="pf-sun"></b>Sun NXT</i>
+              </div>
+            </div>
+            <div class="mui-rt">Trending in Tamil <span>See all</span></div>
+            <div class="mui-row row-3">
+              <div class="poster pa1"><span class="star">★5.3</span><b>Jana Nayagan</b></div>
+              <div class="poster pa2"><span class="star">★6.8</span><b>Karuppu</b></div>
+              <div class="poster pa3"><span class="star">★7.2</span><b>Idhayam</b></div>
+            </div>
           </div>
         </div>
-        <div class="mui-rt">Trending in Tamil <span>See all</span></div>
-        <div class="mui-row row-3">
-          <div class="poster pa1"><span class="star">★5.3</span><b>Jana Nayagan</b></div>
-          <div class="poster pa2"><span class="star">★6.8</span><b>Karuppu</b></div>
-          <div class="poster pa3"><span class="star">★7.2</span><b>Idhayam</b></div>
+      </div>
+      <!-- WATCH -->
+      <div class="cf-slide" data-title="Watch" data-sub="Player · multi-server">
+        <div class="screen-card">
+          <div class="sc-art">
+            <img class="shot-img" src="assets/screens/watch.png" alt="RaY World — Watch" onerror="this.remove()" />
+            <div class="mui-top"><span>9:41</span><span>Now Playing</span><span>⌕ ☰</span></div>
+            <div class="mui-player pa3"><span class="mui-play">▶</span></div>
+            <div class="mui-servers">
+              <div class="mui-rt" style="margin-bottom:7px">Servers <span>Switch if it stalls</span></div>
+              <div class="sv"><span class="on">Pikachu</span><span>Charizard</span><span>Bulbasaur</span><span>Snorlax</span></div>
+            </div>
+            <div class="mui-title" style="font-size:15px">Karuppu</div>
+            <div class="mui-meta"><span>2026 · 2h 32m · Tamil</span><span class="st">★6.8</span></div>
+            <div class="mui-rt" style="margin-top:11px">Related <span>See all</span></div>
+            <div class="mui-row row-3">
+              <div class="poster pa5"><span class="star">★5.9</span><b>Golden</b></div>
+              <div class="poster pa6"><span class="star">★7.2</span><b>Storm</b></div>
+              <div class="poster pa1"><span class="star">★6.1</span><b>Vaanam</b></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="cap"><b>Home</b><span>Featured hero · platforms · rails</span></div>
-    </div>
-    <!-- WATCH -->
-    <div class="screen-card reveal" data-d="1">
-      <div class="sc-art">
-        <div class="mui-top"><span>9:41</span><span>Now Playing</span><span>⌕ ☰</span></div>
-        <div class="mui-player pa3"><span class="mui-play">▶</span></div>
-        <div class="mui-servers">
-          <div class="mui-rt" style="margin-bottom:7px">Servers <span>Switch if it stalls</span></div>
-          <div class="sv"><span class="on">Pikachu</span><span>Charizard</span><span>Bulbasaur</span><span>Snorlax</span></div>
-        </div>
-        <div class="mui-title" style="font-size:15px">Karuppu</div>
-        <div class="mui-meta"><span>2026 · 2h 32m · Tamil</span><span class="st">★6.8</span></div>
-        <div class="mui-rt" style="margin-top:11px">Related <span>See all</span></div>
-        <div class="mui-row row-3">
-          <div class="poster pa5"><span class="star">★5.9</span><b>Golden</b></div>
-          <div class="poster pa6"><span class="star">★7.2</span><b>Storm</b></div>
-          <div class="poster pa1"><span class="star">★6.1</span><b>Vaanam</b></div>
-        </div>
-      </div>
-      <div class="cap"><b>Watch</b><span>Player · multi-server</span></div>
-    </div>
-    <!-- DETAIL -->
-    <div class="screen-card reveal" data-d="2">
-      <div class="sc-art">
-        <div class="mui-top"><span>9:41</span><span></span><span>⌕ ☰</span></div>
-        <div class="mui-feature-lg pa1">
-          <div class="mui-title" style="font-size:18px">JANA<br>NAYAGAN</div>
-          <div class="mui-meta"><span class="st">★5.3</span><span>2026 · 3h 3m · Tamil</span></div>
-        </div>
-        <div class="mui-btnrow" style="margin-top:0;margin-bottom:11px">
-          <span class="mui-watch">▶ Watch Now</span><span class="mui-ghost">✓ Watchlist</span><span class="mui-ghost">▶ Trailer</span>
-        </div>
-        <div class="mui-info">
-          <div class="ir"><em>Runtime</em><b>3h 3m</b></div>
-          <div class="ir"><em>Language</em><b>Tamil</b></div>
-          <div class="ir"><em>Release Date</em><b>Jul 22, 2026</b></div>
-          <div class="ir"><em>Status</em><b>Released</b></div>
+      <!-- DETAIL -->
+      <div class="cf-slide" data-title="Detail" data-sub="Synopsis · info · where to watch">
+        <div class="screen-card">
+          <div class="sc-art">
+            <img class="shot-img" src="assets/screens/detail.png" alt="RaY World — Detail" onerror="this.remove()" />
+            <div class="mui-top"><span>9:41</span><span></span><span>⌕ ☰</span></div>
+            <div class="mui-feature-lg pa1">
+              <div class="mui-title" style="font-size:18px">JANA<br>NAYAGAN</div>
+              <div class="mui-meta"><span class="st">★5.3</span><span>2026 · 3h 3m · Tamil</span></div>
+            </div>
+            <div class="mui-btnrow" style="margin-top:0;margin-bottom:11px">
+              <span class="mui-watch">▶ Watch Now</span><span class="mui-ghost">✓ Watchlist</span><span class="mui-ghost">▶ Trailer</span>
+            </div>
+            <div class="mui-info">
+              <div class="ir"><em>Runtime</em><b>3h 3m</b></div>
+              <div class="ir"><em>Language</em><b>Tamil</b></div>
+              <div class="ir"><em>Release Date</em><b>Jul 22, 2026</b></div>
+              <div class="ir"><em>Status</em><b>Released</b></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="cap"><b>Detail</b><span>Synopsis · info · where to watch</span></div>
     </div>
+    <button class="cf-nav cf-prev" id="cfPrev" aria-label="Previous screen">‹</button>
+    <button class="cf-nav cf-next" id="cfNext" aria-label="Next screen">›</button>
   </div>
+  <div class="cf-cap" id="cfCap"></div>
+  <div class="cf-dots" id="cfDots"></div>
 </div></section>
 
 <!-- ============ INSTALL ============ -->
@@ -1056,6 +1087,46 @@ async function loadTrending(){
   }catch(e){/* offline / file:// — keep the gradient fallback */}
 }
 loadTrending();
+
+/* ---------- "A look inside" coverflow (auto-advance every 4s) ---------- */
+(function(){
+  const cf=document.getElementById('cf'), stage=document.getElementById('cfStage');
+  if(!cf||!stage)return;
+  const slides=[...stage.children];
+  const cap=document.getElementById('cfCap'), dotsWrap=document.getElementById('cfDots');
+  const n=slides.length; let active=0, timer=null, inView=true;
+  slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Screen '+(i+1));
+    b.addEventListener('click',()=>go(i));dotsWrap.appendChild(b);});
+  const dots=[...dotsWrap.children];
+  function layout(){
+    const w=stage.clientWidth||cf.clientWidth||900;
+    const gap=Math.min(300,Math.max(150,w*0.3));
+    slides.forEach((s,i)=>{
+      let d=i-active; if(d>n/2)d-=n; if(d<-n/2)d+=n;
+      const ad=Math.abs(d);
+      const sc=ad===0?1:ad===1?.8:.62;
+      const op=ad===0?1:ad===1?.85:0;
+      s.style.transform='translate(-50%,-50%) translateX('+(d*gap)+'px) scale('+sc+') rotateY('+(-d*16)+'deg)';
+      s.style.opacity=op;
+      s.style.zIndex=String(30-ad);
+      s.style.filter=ad===0?'none':'brightness(.62) saturate(.9)';
+      s.style.pointerEvents=ad<=1?'auto':'none';
+    });
+    const a=slides[active];
+    cap.innerHTML='<b>'+a.dataset.title+'</b><span>'+a.dataset.sub+'</span>';
+    dots.forEach((dt,i)=>dt.classList.toggle('on',i===active));
+  }
+  function go(i){active=(i%n+n)%n;layout();arm();}
+  const next=()=>go(active+1), prev=()=>go(active-1);
+  function arm(){clearInterval(timer); if(inView&&!document.hidden) timer=setInterval(next,4000);}
+  document.getElementById('cfNext').addEventListener('click',next);
+  document.getElementById('cfPrev').addEventListener('click',prev);
+  slides.forEach((s,i)=>s.addEventListener('click',()=>{if(i!==active)go(i);}));
+  addEventListener('resize',layout,{passive:true});
+  document.addEventListener('visibilitychange',arm);
+  new IntersectionObserver(es=>{es.forEach(e=>{inView=e.isIntersecting;if(inView)layout();arm();});},{threshold:.2}).observe(cf);
+  layout(); arm();
+})();
 
 /* ============================================================
    Heavy motion — desktop / capable devices only

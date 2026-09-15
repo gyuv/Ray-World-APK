@@ -32,6 +32,24 @@ Because the asset name is stable, `/releases/latest/download/app-universal.apk`
 always fetches the newest build with no page changes needed. If you rename the
 asset in future, update `APK_URL` to match.
 
+## Use your real app screenshots ("A look inside" carousel)
+
+The coverflow carousel auto-advances every 4s (centre screen large, neighbours
+peeking on the sides). Each slide first tries a real screenshot and falls back
+to the built-in app mockup if the file isn't there — so it looks complete now
+and upgrades the moment you add images.
+
+Drop your (portrait) screenshots into `assets/screens/` with these names:
+
+```
+assets/screens/home.png     # Home / featured
+assets/screens/watch.png    # Player / servers
+assets/screens/detail.png   # Movie detail
+```
+
+Commit and redeploy — the carousel shows your real screens automatically. Want
+more than three slides, or different labels? Say so and I'll wire them.
+
 ## Show real movie posters (TMDB)
 
 The **Trending now** row pulls live posters from TMDB through a tiny serverless
