@@ -607,7 +607,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge reveal"><span class="dot"></span> Official Android build · v<span data-ver>1.0</span></div>
+      <div class="badge reveal"><span class="dot"></span> Official Android build · phone + TV</div>
       <div class="tagline reveal" data-d="1">Discover • Watch • Enjoy</div>
       <h1 class="reveal" data-d="1">
         <span class="l1 chrome-text">RaY World</span>
@@ -631,7 +631,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-7-4-7 4z"/></svg> Free · No ads</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg> Safe install</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v16H7z"/><path d="M11 18h2"/></svg> Android 7.0+</span>
-        <span class="chip" data-size>~ 28 MB</span>
+        <span class="chip" data-size>~ 4 MB</span>
       </div>
     </div>
 
@@ -894,7 +894,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
         Download APK
       </a>
-      <a class="btn btn-ghost" style="font-size:16px;padding:16px 30px" href="https://github.com/gyuv/ray-world-apk/releases" target="_blank" rel="noopener">All releases ↗</a>
+      <a class="btn btn-ghost" style="font-size:16px;padding:16px 30px" href="https://github.com/gyuv/RaY-World/releases" target="_blank" rel="noopener">All releases ↗</a>
     </div>
   </div>
 </div></section>
@@ -907,7 +907,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   </div>
   <div class="faq-list">
     <div class="qa reveal"><button>Is the APK safe to install?<span class="ico"></span></button><div class="ans"><p>Yes. It's the official RaY World build, published straight from our GitHub Releases. Because it isn't on the Play Store yet, Android will ask you to allow install from this source once — that's normal for sideloaded apps.</p></div></div>
-    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. The app is lightweight — around 28 MB — and runs smoothly on most modern phones and tablets.</p></div></div>
+    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. It's a lightweight universal build — around 4 MB — that runs on phones, tablets and Android TV (Leanback).</p></div></div>
     <div class="qa reveal"><button>Do I need an account?<span class="ico"></span></button><div class="ans"><p>No account required to browse and search. Your watchlist and continue-watching are stored on your device, with a schema ready for optional account sync later.</p></div></div>
     <div class="qa reveal"><button>Does it stream pirated content?<span class="ico"></span></button><div class="ans"><p>No. RaY World is a discovery platform. It ships without bundled streams, never scrapes or proxies unauthorized sources, and plays only authorized previews where available. Metadata is provided by TMDB.</p></div></div>
     <div class="qa reveal"><button>How do I update to a new version?<span class="ico"></span></button><div class="ans"><p>Just download the newest APK from this page and install over the top — your watchlist stays put. We'll keep publishing new builds to GitHub Releases.</p></div></div>
@@ -927,7 +927,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
       <a href="https://rayworld.vercel.app/" target="_blank" rel="noopener">Web app</a>
       <a href="#features">Features</a>
       <a href="#install">Install guide</a>
-      <a href="https://github.com/gyuv/ray-world-apk/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/gyuv/RaY-World/releases" target="_blank" rel="noopener">Releases</a>
     </div>
     <div class="foot-col">
       <h5>Project</h5>
@@ -946,12 +946,12 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 /* ============================================================
    Config — change these if your repo / asset names differ
    ============================================================ */
-// One-click direct download once you upload an asset named RayWorld.apk to a Release:
-//   const APK_URL = "https://github.com/gyuv/ray-world-apk/releases/latest/download/RayWorld.apk";
-// Until then we point at the Releases page (never 404s, lists your APK):
-const APK_URL = "https://github.com/gyuv/ray-world-apk/releases";
-const APP_VERSION = "1.0";
-const APP_SIZE = "~ 28 MB";
+// Direct one-click download of the latest RaY-World APK (universal phone + TV).
+// The CI keeps this asset name stable on the "apk-latest" release, so
+// /releases/latest/download/app-universal.apk always fetches the newest build.
+const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
+const APP_VERSION = "latest";
+const APP_SIZE = "~ 4 MB";
 
 /* wire download links + meta */
 document.querySelectorAll('[data-dl]').forEach(a=>{a.href=APK_URL;a.target="_blank";a.rel="noopener";});

@@ -14,24 +14,23 @@ Zero config. Import this repo into Vercel and deploy — it's served as a static
 site straight from the repo root. `index.html` is the whole page; `/assets`
 holds the brand images.
 
-## Point the Download button at your APK
+## The Download button
 
-Open `index.html` and edit the config block near the bottom `<script>`:
+Every `Download APK` button points at the latest RaY-World release asset for a
+true one-click download. It's wired in the config block near the bottom
+`<script>` of `index.html`:
 
 ```js
-const APK_URL = "https://github.com/gyuv/ray-world-apk/releases";
-const APP_VERSION = "1.0";
-const APP_SIZE = "~ 28 MB";
+const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
+const APP_VERSION = "latest";
+const APP_SIZE = "~ 4 MB";
 ```
 
-- **Right now** the button opens the GitHub **Releases** page (never 404s and
-  always lists your latest APK).
-- **For true one-click download**, publish a Release with an asset named
-  `RayWorld.apk`, then switch `APK_URL` to:
-  ```js
-  const APK_URL = "https://github.com/gyuv/ray-world-apk/releases/latest/download/RayWorld.apk";
-  ```
-  Every `Download APK` button on the page updates automatically.
+The APK lives in the **RaY-World** repo (built by CI to the `apk-latest`
+release, asset `app-universal.apk` — a universal phone + Android TV build).
+Because the asset name is stable, `/releases/latest/download/app-universal.apk`
+always fetches the newest build with no page changes needed. If you rename the
+asset in future, update `APK_URL` to match.
 
 ## Show real movie posters (TMDB)
 
