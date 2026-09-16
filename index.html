@@ -983,12 +983,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 /* ============================================================
    Config — change these if your repo / asset names differ
    ============================================================ */
-// Direct one-click download of the latest RaY-World APK (universal phone + TV).
-// The CI keeps this asset name stable on the "apk-latest" release, so
-// /releases/latest/download/app-universal.apk always fetches the newest build.
-const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
-const APP_VERSION = "latest";
-const APP_SIZE = "~ 4 MB";
+// The RaY-World source repo is private, so its release assets aren't
+// publicly downloadable — this page ships its own mirrored copy instead.
+// /downloads/app-universal.apk is synced from the source repo's latest
+// release by .github/workflows/sync-apk.yml (see downloads/version.json).
+const APK_URL = "/downloads/app-universal.apk";
+const APP_VERSION = "1.0.11";
+const APP_SIZE = "~ 3.2 MB";
 
 /* wire download links + meta */
 document.querySelectorAll('[data-dl]').forEach(a=>{a.href=APK_URL;a.target="_blank";a.rel="noopener";});
