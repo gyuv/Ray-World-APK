@@ -655,7 +655,10 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-7-4-7 4z"/></svg> Free · No ads</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg> Safe install</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v16H7z"/><path d="M11 18h2"/></svg> Android 7.0+</span>
-        <span class="chip" data-size>~ 4 MB</span>
+        <span class="chip" data-size>~ 3.3 MB</span>
+        <a class="chip" href="#install" data-dl-tv style="cursor:pointer" title="Direct download of the Android TV build">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Android TV build
+        </a>
       </div>
     </div>
 
@@ -890,9 +893,13 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   </div>
 
   <div class="plat-toggle reveal" role="tablist">
-    <button data-plat="android" class="active" role="tab" aria-selected="true">
+    <button data-plat="phone" class="active" role="tab" aria-selected="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M11 18h2"/></svg>
-      Android
+      Android Phone
+    </button>
+    <button data-plat="tv" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Android TV
     </button>
     <button data-plat="ios" role="tab" aria-selected="false">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 1.9c0 1-.4 2-1.1 2.8-.8.9-2 1.5-3.1 1.4-.1-1 .4-2.1 1.1-2.9.8-.8 2-1.4 3.1-1.3zM20.5 17c-.3.8-.7 1.4-1.1 2.1-.6 1-1.2 1.6-1.7 2-.7.7-1.4 1-2.2 1-.6 0-1.3-.2-2.1-.5-.8-.3-1.5-.5-2.1-.5-.7 0-1.4.2-2.2.5-.8.3-1.4.5-1.9.5-.8 0-1.6-.3-2.3-1-.5-.5-1.2-1.2-1.8-2.1-.7-1-1.3-2.2-1.7-3.6-.4-1.5-.4-3 0-4.4.3-1.1.8-2 1.6-2.7.7-.6 1.5-1 2.4-1 .6 0 1.3.2 2.2.6.9.3 1.4.5 1.7.5.2 0 .8-.2 1.9-.6.9-.4 1.7-.5 2.4-.5 1.8.1 3.1.8 4 2.1-1.6.9-2.4 2.2-2.4 3.9 0 1.3.5 2.4 1.4 3.3.4.4.9.7 1.4.9z"/></svg>
@@ -900,11 +907,27 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     </button>
   </div>
 
-  <!-- ANDROID -->
-  <div class="steps" data-steps="android">
-    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Download the APK</h3><p>Tap <b>Download APK</b> to grab the latest signed build straight from GitHub Releases.</p></div>
+  <!-- ANDROID PHONE / TABLET -->
+  <div class="steps" data-steps="phone">
+    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Download the APK</h3><p>Tap <b>Download for Phone</b> below to grab the latest phone/tablet build straight from GitHub Releases.</p>
+      <a class="btn btn-primary" style="margin-top:16px;font-size:14px;padding:11px 20px" href="#" data-dl>Download for Phone</a>
+    </div>
     <div class="step reveal" data-d="1"><span class="n">02</span><span class="conn"></span><h3>Allow the install</h3><p>Open the file. If Android asks, tap <b>Settings → Allow from this source</b>. It's a one-time toggle.</p></div>
     <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open &amp; enjoy</h3><p>Tap <b>Install</b>, then open RaY World from your home screen. Discover • Watch • Enjoy.</p></div>
+  </div>
+
+  <!-- ANDROID TV -->
+  <div class="steps" data-steps="tv" hidden>
+    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Get the APK onto your TV</h3><p>On your Android TV, install <b>Downloader</b> (by AFTVnews) from the Play Store, then enter the link below to fetch the TV build — or download it on your phone and cast/transfer it over.</p>
+      <a class="btn btn-primary" style="margin-top:16px;font-size:14px;padding:11px 20px" href="#" data-dl-tv>Download for Android TV</a>
+    </div>
+    <div class="step reveal" data-d="1"><span class="n">02</span><span class="conn"></span><h3>Allow the install</h3><p>When prompted, allow installs from unknown sources for the app you used (e.g. Downloader). It's a one-time toggle per source.</p></div>
+    <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open &amp; enjoy</h3><p>Open the downloaded file to install, then launch RaY World from your Android TV's Leanback home screen — built for the big screen and a remote.</p></div>
+  </div>
+
+  <div class="ios-note reveal" data-steps="tv" hidden>
+    <span class="share"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+    <p>Prefer ADB? With your TV's debug IP known: <b>adb connect &lt;tv-ip&gt;</b> then <b>adb install app-tv.apk</b> works too. The TV build uses the Leanback launcher, so it appears as a channel row on your TV home screen, not a phone-style icon.</p>
   </div>
 
   <!-- iOS -->
@@ -929,7 +952,11 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
     <div class="hero-actions" style="justify-content:center">
       <a class="btn btn-primary" style="font-size:16px;padding:16px 30px" href="#" data-dl>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
-        Download APK
+        Download for Phone
+      </a>
+      <a class="btn btn-ghost" style="font-size:16px;padding:16px 30px" href="#" data-dl-tv>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Download for Android TV
       </a>
       <a class="btn btn-ghost" style="font-size:16px;padding:16px 30px" href="https://github.com/gyuv/RaY-World/releases" target="_blank" rel="noopener">All releases ↗</a>
     </div>
@@ -944,7 +971,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   </div>
   <div class="faq-list">
     <div class="qa reveal"><button>Is the APK safe to install?<span class="ico"></span></button><div class="ans"><p>Yes. It's the official RaY World build, published straight from our GitHub Releases. Because it isn't on the Play Store yet, Android will ask you to allow install from this source once — that's normal for sideloaded apps.</p></div></div>
-    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. It's a lightweight universal build — around 4 MB — that runs on phones, tablets and Android TV (Leanback).</p></div></div>
+    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. We ship two lightweight builds (~3.3 MB each) — one for phones and tablets, and a dedicated Android TV build with the Leanback launcher. Grab the one that matches your device above.</p></div></div>
     <div class="qa reveal"><button>Do I need an account?<span class="ico"></span></button><div class="ans"><p>No account required to browse and search. Your watchlist and continue-watching are stored on your device, with a schema ready for optional account sync later.</p></div></div>
     <div class="qa reveal"><button>Does it stream pirated content?<span class="ico"></span></button><div class="ans"><p>No. RaY World is a discovery platform. It ships without bundled streams, never scrapes or proxies unauthorized sources, and plays only authorized previews where available. Metadata is provided by TMDB.</p></div></div>
     <div class="qa reveal"><button>How do I update to a new version?<span class="ico"></span></button><div class="ans"><p>Just download the newest APK from this page and install over the top — your watchlist stays put. We'll keep publishing new builds to GitHub Releases.</p></div></div>
@@ -983,15 +1010,18 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 /* ============================================================
    Config — change these if your repo / asset names differ
    ============================================================ */
-// Direct one-click download of the latest RaY-World APK (universal phone + TV).
-// The CI keeps this asset name stable on the "apk-latest" release, so
-// /releases/latest/download/app-universal.apk always fetches the newest build.
-const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
+// Direct one-click downloads of the latest RaY-World APKs — now split into a
+// phone/tablet build and a dedicated Android TV (Leanback) build. The CI keeps
+// both asset names stable on the "apk-latest" release, so /releases/latest/
+// download/<asset> always fetches the newest build with no page changes needed.
+const APK_URL_MOBILE = "https://github.com/gyuv/RaY-World/releases/latest/download/app-mobile.apk";
+const APK_URL_TV = "https://github.com/gyuv/RaY-World/releases/latest/download/app-tv.apk";
 const APP_VERSION = "latest";
-const APP_SIZE = "~ 4 MB";
+const APP_SIZE = "~ 3.3 MB";
 
-/* wire download links + meta */
-document.querySelectorAll('[data-dl]').forEach(a=>{a.href=APK_URL;a.target="_blank";a.rel="noopener";});
+/* wire download links + meta — [data-dl] = phone/tablet build, [data-dl-tv] = Android TV build */
+document.querySelectorAll('[data-dl]').forEach(a=>{a.href=APK_URL_MOBILE;a.target="_blank";a.rel="noopener";});
+document.querySelectorAll('[data-dl-tv]').forEach(a=>{a.href=APK_URL_TV;a.target="_blank";a.rel="noopener";});
 document.querySelectorAll('[data-ver]').forEach(e=>e.textContent=APP_VERSION);
 document.querySelectorAll('[data-size]').forEach(e=>e.textContent=APP_SIZE);
 document.getElementById('yr').textContent=new Date().getFullYear();
@@ -1061,7 +1091,7 @@ document.querySelectorAll('.feat-card,.cat').forEach(c=>{
     c.style.setProperty('--my',(e.clientY-r.top)+'px');},{passive:true});
 });
 
-/* ---------- install platform toggle (Android / iOS) ---------- */
+/* ---------- install platform toggle (Phone / Android TV / iOS) ---------- */
 const platBtns=document.querySelectorAll('.plat-toggle button');
 const platParts=document.querySelectorAll('[data-steps]');
 platBtns.forEach(btn=>btn.addEventListener('click',()=>{
