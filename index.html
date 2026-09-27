@@ -1031,14 +1031,14 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 // the device picker (#download); the picker buttons link to the matching APK.
 // Keep these asset names stable on the release so /latest/download/ always works.
 const APK_URLS = {
-  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-mobile.apk",
-  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-tv.apk",
+  mobile: "/api/download?device=mobile",
+  tv:     "/api/download?device=tv",
 };
 const APP_VERSION = "latest";
 const APP_SIZE = "3.2 MB";
 
 /* wire download links + meta */
-document.querySelectorAll('[data-apk]').forEach(a=>{a.href=APK_URLS[a.dataset.apk];a.target="_blank";a.rel="noopener";});
+document.querySelectorAll('[data-apk]').forEach(a=>{a.href=APK_URLS[a.dataset.apk];});
 const picker=document.getElementById('download');
 document.querySelectorAll('[data-dl]').forEach(a=>{
   a.href="#download";

@@ -23,14 +23,17 @@ buttons link to the matching APK, configured near the bottom `<script>` of
 
 ```js
 const APK_URLS = {
-  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-mobile.apk",
-  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-tv.apk",
+  mobile: "/api/download?device=mobile",
+  tv:     "/api/download?device=tv",
 };
 ```
 
-Publish both assets on the RaY-World release with these exact names so
-`/releases/latest/download/…` always fetches the newest build. If your asset
-names differ, just edit `APK_URLS`.
+Because **RaY-World is private**, the buttons go through `api/download.js`,
+which finds the newest release carrying `rayworld-mobile.apk` /
+`rayworld-tv.apk` and redirects to a short-lived signed download URL.
+Set `GITHUB_TOKEN` in Vercel (Settings → Environment Variables) to a
+fine-grained token with read-only **Contents** access to `gyuv/RaY-World`.
+If the asset names change, edit `ASSETS` in `api/download.js`.
 
 ## Use your real app screenshots ("A look inside" carousel)
 
