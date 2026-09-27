@@ -14,23 +14,23 @@ Zero config. Import this repo into Vercel and deploy — it's served as a static
 site straight from the repo root. `index.html` is the whole page; `/assets`
 holds the brand images.
 
-## The Download button
+## The Download buttons
 
-Every `Download APK` button points at the latest RaY-World release asset for a
-true one-click download. It's wired in the config block near the bottom
-`<script>` of `index.html`:
+Every generic `Download` button smoothly scrolls to the **Choose your device**
+section (`#download`), where visitors pick **Mobile** or **TV**. Those two
+buttons link to the matching APK, configured near the bottom `<script>` of
+`index.html`:
 
 ```js
-const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
-const APP_VERSION = "latest";
-const APP_SIZE = "~ 4 MB";
+const APK_URLS = {
+  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/app-mobile.apk",
+  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/app-tv.apk",
+};
 ```
 
-The APK lives in the **RaY-World** repo (built by CI to the `apk-latest`
-release, asset `app-universal.apk` — a universal phone + Android TV build).
-Because the asset name is stable, `/releases/latest/download/app-universal.apk`
-always fetches the newest build with no page changes needed. If you rename the
-asset in future, update `APK_URL` to match.
+Publish both assets on the RaY-World release with these exact names so
+`/releases/latest/download/…` always fetches the newest build. If your asset
+names differ, just edit `APK_URLS`.
 
 ## Use your real app screenshots ("A look inside" carousel)
 
