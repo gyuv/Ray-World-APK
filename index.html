@@ -670,7 +670,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-7-4-7 4z"/></svg> Free · No ads</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg> Safe install</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v16H7z"/><path d="M11 18h2"/></svg> Android 7.0+</span>
-        <span class="chip" data-size>~ 4 MB</span>
+        <span class="chip" data-size>3.2 MB</span>
       </div>
     </div>
 
@@ -1031,11 +1031,11 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 // the device picker (#download); the picker buttons link to the matching APK.
 // Keep these asset names stable on the release so /latest/download/ always works.
 const APK_URLS = {
-  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/app-mobile.apk",
-  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/app-tv.apk",
+  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-mobile.apk",
+  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-tv.apk",
 };
 const APP_VERSION = "latest";
-const APP_SIZE = "~ 4 MB";
+const APP_SIZE = "3.2 MB";
 
 /* wire download links + meta */
 document.querySelectorAll('[data-apk]').forEach(a=>{a.href=APK_URLS[a.dataset.apk];a.target="_blank";a.rel="noopener";});

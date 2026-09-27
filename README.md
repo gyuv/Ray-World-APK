@@ -23,8 +23,8 @@ buttons link to the matching APK, configured near the bottom `<script>` of
 
 ```js
 const APK_URLS = {
-  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/app-mobile.apk",
-  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/app-tv.apk",
+  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-mobile.apk",
+  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-tv.apk",
 };
 ```
 
