@@ -574,6 +574,19 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   #rayCanvas,.aurora{display:none}
   .reveal{opacity:1;transform:none}
 }
+
+/* ---------- device picker (mobile / TV download) ---------- */
+.devices{padding:90px 0 20px;scroll-margin-top:80px}
+.dev-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:880px;margin:34px auto 0}
+.dev-card{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:34px 26px;border-radius:24px;background:var(--glass);border:1px solid var(--line-strong);transition:transform .3s,border-color .3s,box-shadow .3s}
+.dev-card:hover{transform:translateY(-4px);border-color:rgba(255,201,51,.5)}
+.dev-card.flash{box-shadow:0 0 0 2px var(--rose),0 0 60px -10px rgba(245,182,12,.6)}
+.dev-card .dev-ico{width:64px;height:64px;display:grid;place-items:center;border-radius:18px;background:var(--glass-2);color:var(--rose)}
+.dev-card .dev-ico svg{width:34px;height:34px}
+.dev-card h3{margin:0;font-size:22px}
+.dev-card p{margin:0;opacity:.75;font-size:14px;line-height:1.5}
+.dev-card .btn{margin-top:8px}
+@media (max-width:640px){.dev-grid{grid-template-columns:1fr}.devices{padding-top:60px}}
 </style>
 </head>
 <body>
@@ -596,6 +609,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
       <a href="#features">Features</a>
       <a href="#catalog">Catalog</a>
       <a href="#trending">Trending</a>
+      <a href="#download">Download</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -620,7 +634,8 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   <a href="#features">Features</a>
   <a href="#catalog">Catalog</a>
   <a href="#trending">Trending</a>
-  <a href="#install">Install</a>
+  <a href="#download">Download</a>
+      <a href="#install">Install</a>
   <a href="#faq">FAQ</a>
   <a class="btn btn-primary" href="#" data-dl>Download APK</a>
 </div>
@@ -655,7 +670,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-7-4-7 4z"/></svg> Free · No ads</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg> Safe install</span>
         <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10v16H7z"/><path d="M11 18h2"/></svg> Android 7.0+</span>
-        <span class="chip" data-size>~ 4 MB</span>
+        <span class="chip" data-size>3.2 MB</span>
       </div>
     </div>
 
@@ -882,6 +897,35 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 </div></section>
 
 <!-- ============ INSTALL ============ -->
+<!-- ============ DEVICE PICKER ============ -->
+<section class="devices" id="download"><div class="wrap">
+  <div class="section-head reveal" style="text-align:center;margin-inline:auto">
+    <span class="eyebrow" style="justify-content:center">Download</span>
+    <h2>Choose your <span class="grad-text">device</span></h2>
+    <p>Separate builds, each tuned for its screen. Pick the one that matches where you'll watch.</p>
+  </div>
+  <div class="dev-grid">
+    <div class="dev-card reveal">
+      <span class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span>
+      <h3>Mobile &amp; Tablet</h3>
+      <p>For Android phones and tablets. Touch-first UI, Android 7.0+.</p>
+      <a class="btn btn-primary" href="#" data-apk="mobile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        Download for Mobile
+      </a>
+    </div>
+    <div class="dev-card reveal" data-d="1">
+      <span class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+      <h3>Android TV</h3>
+      <p>For Android TV, Google TV &amp; Fire TV. Remote-friendly Leanback UI.</p>
+      <a class="btn btn-primary" href="#" data-apk="tv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        Download for TV
+      </a>
+    </div>
+  </div>
+</div></section>
+
 <section class="install" id="install"><div class="wrap">
   <div class="section-head reveal">
     <span class="eyebrow">Get started</span>
@@ -902,7 +946,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 
   <!-- ANDROID -->
   <div class="steps" data-steps="android">
-    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Download the APK</h3><p>Tap <b>Download APK</b> to grab the latest signed build straight from GitHub Releases.</p></div>
+    <div class="step reveal"><span class="n">01</span><span class="conn"></span><h3>Download the APK</h3><p>Tap <b>Download</b>, pick <b>Mobile</b> or <b>TV</b>, and grab the latest signed build straight from GitHub Releases.</p></div>
     <div class="step reveal" data-d="1"><span class="n">02</span><span class="conn"></span><h3>Allow the install</h3><p>Open the file. If Android asks, tap <b>Settings → Allow from this source</b>. It's a one-time toggle.</p></div>
     <div class="step reveal" data-d="2"><span class="n">03</span><h3>Open &amp; enjoy</h3><p>Tap <b>Install</b>, then open RaY World from your home screen. Discover • Watch • Enjoy.</p></div>
   </div>
@@ -944,7 +988,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
   </div>
   <div class="faq-list">
     <div class="qa reveal"><button>Is the APK safe to install?<span class="ico"></span></button><div class="ans"><p>Yes. It's the official RaY World build, published straight from our GitHub Releases. Because it isn't on the Play Store yet, Android will ask you to allow install from this source once — that's normal for sideloaded apps.</p></div></div>
-    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. It's a lightweight universal build — around 4 MB — that runs on phones, tablets and Android TV (Leanback).</p></div></div>
+    <div class="qa reveal"><button>Which Android version do I need?<span class="ico"></span></button><div class="ans"><p>Android 7.0 (Nougat) or newer. There are two lightweight builds — <b>Mobile</b> for phones &amp; tablets and <b>TV</b> for Android TV / Google TV / Fire TV (Leanback). Pick the right one in the <a href="#download" style="color:var(--rose)">Choose your device</a> section.</p></div></div>
     <div class="qa reveal"><button>Do I need an account?<span class="ico"></span></button><div class="ans"><p>No account required to browse and search. Your watchlist and continue-watching are stored on your device, with a schema ready for optional account sync later.</p></div></div>
     <div class="qa reveal"><button>Does it stream pirated content?<span class="ico"></span></button><div class="ans"><p>No. RaY World is a discovery platform. It ships without bundled streams, never scrapes or proxies unauthorized sources, and plays only authorized previews where available. Metadata is provided by TMDB.</p></div></div>
     <div class="qa reveal"><button>How do I update to a new version?<span class="ico"></span></button><div class="ans"><p>Just download the newest APK from this page and install over the top — your watchlist stays put. We'll keep publishing new builds to GitHub Releases.</p></div></div>
@@ -983,15 +1027,28 @@ footer{border-top:1px solid var(--line);padding:56px 0 40px;position:relative;z-
 /* ============================================================
    Config — change these if your repo / asset names differ
    ============================================================ */
-// Direct one-click download of the latest RaY-World APK (universal phone + TV).
-// The CI keeps this asset name stable on the "apk-latest" release, so
-// /releases/latest/download/app-universal.apk always fetches the newest build.
-const APK_URL = "https://github.com/gyuv/RaY-World/releases/latest/download/app-universal.apk";
+// Separate builds for phone and TV. Every generic "Download" button scrolls to
+// the device picker (#download); the picker buttons link to the matching APK.
+// Keep these asset names stable on the release so /latest/download/ always works.
+const APK_URLS = {
+  mobile: "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-mobile.apk",
+  tv:     "https://github.com/gyuv/RaY-World/releases/latest/download/rayworld-tv.apk",
+};
 const APP_VERSION = "latest";
-const APP_SIZE = "~ 4 MB";
+const APP_SIZE = "3.2 MB";
 
 /* wire download links + meta */
-document.querySelectorAll('[data-dl]').forEach(a=>{a.href=APK_URL;a.target="_blank";a.rel="noopener";});
+document.querySelectorAll('[data-apk]').forEach(a=>{a.href=APK_URLS[a.dataset.apk];a.target="_blank";a.rel="noopener";});
+const picker=document.getElementById('download');
+document.querySelectorAll('[data-dl]').forEach(a=>{
+  a.href="#download";
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    picker.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    history.replaceState(null,'','#download');
+    picker.querySelectorAll('.dev-card').forEach(c=>{c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');setTimeout(()=>c.classList.remove('flash'),1600);});
+  });
+});
 document.querySelectorAll('[data-ver]').forEach(e=>e.textContent=APP_VERSION);
 document.querySelectorAll('[data-size]').forEach(e=>e.textContent=APP_SIZE);
 document.getElementById('yr').textContent=new Date().getFullYear();
