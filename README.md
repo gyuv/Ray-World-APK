@@ -14,7 +14,7 @@ Zero config. Import this repo into Vercel and deploy — it's served as a static
 site straight from the repo root. `index.html` is the whole page; `/assets`
 holds the brand images.
 
-## The Download button
+## The Download buttons
 
 The **RaY-World** source repo (built by CI to the `apk-latest` release, asset
 `app-universal.apk` — a universal phone + Android TV build) is **private**,
@@ -47,6 +47,24 @@ sync job fails with a clear error instead of silently doing nothing.
 `downloads/version.json` records which upstream release is currently
 mirrored (`sourceTag`, `mirroredAt`) so the workflow can skip re-downloading
 when there's nothing new.
+Every generic `Download` button smoothly scrolls to the **Choose your device**
+section (`#download`), where visitors pick **Mobile** or **TV**. Those two
+buttons link to the matching APK, configured near the bottom `<script>` of
+`index.html`:
+
+```js
+const APK_URLS = {
+  mobile: "/api/download?device=mobile",
+  tv:     "/api/download?device=tv",
+};
+```
+
+Because **RaY-World is private**, the buttons go through `api/download.js`,
+which finds the newest release carrying `rayworld-mobile.apk` /
+`rayworld-tv.apk` and redirects to a short-lived signed download URL.
+Set `GITHUB_TOKEN` in Vercel (Settings → Environment Variables) to a
+fine-grained token with read-only **Contents** access to `gyuv/RaY-World`.
+If the asset names change, edit `ASSETS` in `api/download.js`.
 
 ## Use your real app screenshots ("A look inside" carousel)
 
