@@ -16,6 +16,30 @@ holds the brand images.
 
 ## The Download buttons
 
+RaY-World's CI now publishes **two separate Android builds** on every release
+instead of one universal APK: a phone/tablet build and a dedicated Android TV
+(Leanback) build. The site's `Download for Phone` and `Download for Android TV`
+buttons each point at their matching release asset for a true one-click
+download. It's wired in the config block near the bottom `<script>` of
+`index.html`:
+
+```js
+const APK_URL_MOBILE = "https://github.com/gyuv/RaY-World/releases/latest/download/app-mobile.apk";
+const APK_URL_TV = "https://github.com/gyuv/RaY-World/releases/latest/download/app-tv.apk";
+const APP_VERSION = "latest";
+const APP_SIZE = "~ 3.3 MB";
+```
+
+Both APKs live in the **RaY-World** repo (built by CI to the `apk-latest`
+release — assets `app-mobile.apk` and `app-tv.apk`). Because the asset names
+are stable, `/releases/latest/download/<asset>` always fetches the newest
+build of each with no page changes needed. If you rename an asset in future,
+update the matching `APK_URL_*` constant to match.
+
+Elements marked `data-dl` get wired to the phone build; elements marked
+`data-dl-tv` get wired to the TV build. The Install section's platform toggle
+now has three tabs — **Android Phone**, **Android TV** and **iPhone / iPad** —
+each with its own install steps and download button.
 The **RaY-World** source repo (built by CI to the `apk-latest` release, asset
 `app-universal.apk` — a universal phone + Android TV build) is **private**,
 so its release assets aren't publicly downloadable. This repo keeps its own
