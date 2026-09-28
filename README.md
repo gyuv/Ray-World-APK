@@ -40,6 +40,55 @@ Elements marked `data-dl` get wired to the phone build; elements marked
 `data-dl-tv` get wired to the TV build. The Install section's platform toggle
 now has three tabs — **Android Phone**, **Android TV** and **iPhone / iPad** —
 each with its own install steps and download button.
+The **RaY-World** source repo (built by CI to the `apk-latest` release, asset
+`app-universal.apk` — a universal phone + Android TV build) is **private**,
+so its release assets aren't publicly downloadable. This repo keeps its own
+mirrored copy under [`downloads/app-universal.apk`](downloads/app-universal.apk)
+instead, and every `Download APK` button points at that local copy. It's
+wired in the config block near the bottom `<script>` of `index.html`:
+
+```js
+const APK_URL = "/downloads/app-universal.apk";
+const APP_VERSION = "1.0.11";
+const APP_SIZE = "~ 3.2 MB";
+```
+
+### Keeping the mirror in sync
+
+[`.github/workflows/sync-apk.yml`](.github/workflows/sync-apk.yml) checks the
+source repo's latest release every 6 hours (and on-demand via
+**Actions → Sync APK from RaY-World → Run workflow**). When it finds a new
+release it downloads `app-universal.apk` + `version.json`, overwrites
+`downloads/`, bumps `APP_VERSION`/`APP_SIZE` in `index.html`, and commits +
+pushes automatically — no manual copying needed for future builds.
+
+This requires a repo secret **`SOURCE_REPO_TOKEN`**: a GitHub token (classic
+PAT with `repo` scope, or a fine-grained PAT with read-only "Contents" access
+to `gyuv/RaY-World`) able to read that private repo's releases. Add it under
+**Settings → Secrets and variables → Actions** on this repo. Without it the
+sync job fails with a clear error instead of silently doing nothing.
+
+`downloads/version.json` records which upstream release is currently
+mirrored (`sourceTag`, `mirroredAt`) so the workflow can skip re-downloading
+when there's nothing new.
+Every generic `Download` button smoothly scrolls to the **Choose your device**
+section (`#download`), where visitors pick **Mobile** or **TV**. Those two
+buttons link to the matching APK, configured near the bottom `<script>` of
+`index.html`:
+
+```js
+const APK_URLS = {
+  mobile: "/api/download?device=mobile",
+  tv:     "/api/download?device=tv",
+};
+```
+
+Because **RaY-World is private**, the buttons go through `api/download.js`,
+which finds the newest release carrying `rayworld-mobile.apk` /
+`rayworld-tv.apk` and redirects to a short-lived signed download URL.
+Set `GITHUB_TOKEN` in Vercel (Settings → Environment Variables) to a
+fine-grained token with read-only **Contents** access to `gyuv/RaY-World`.
+If the asset names change, edit `ASSETS` in `api/download.js`.
 
 ## Use your real app screenshots ("A look inside" carousel)
 
@@ -81,7 +130,12 @@ no server, so you'll see the gradient fallback; deploy to Vercel to see posters.
 ```
 index.html               # the entire page (HTML + CSS + JS inline)
 api/trending.js          # serverless: TMDB trending posters (key stays server-side)
-vercel.json              # cleanUrls + long-cache headers for /assets
+vercel.json              # cleanUrls + cache headers for /assets and /downloads
+downloads/
+  app-universal.apk      # mirrored copy of the latest RaY-World release APK
+  version.json           # metadata for the mirrored build (synced automatically)
+.github/workflows/
+  sync-apk.yml           # pulls the newest APK from the source repo on a schedule
 assets/
   app-icon.png           # 512² app icon (hero orbit, CTA, apple-touch-icon)
   favicon.png            # 180² browser tab icon
