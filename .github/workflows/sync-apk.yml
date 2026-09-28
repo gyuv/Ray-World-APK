@@ -1,0 +1,121 @@
+name: Sync APK from RaY-World
+
+# Mirrors the newest app-universal.apk release asset from the private
+# gyuv/RaY-World source repo into this (public) repo under /downloads,
+# so the Download button here always serves a copy the public can fetch
+# without needing access to the private source repo.
+#
+# Requires a repo secret SOURCE_REPO_TOKEN: a token (classic PAT with
+# "repo" scope, or a fine-grained PAT with read-only access to
+# gyuv/RaY-World's contents) that can read that repo's releases.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [source-release-published]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch latest source release metadata
+        id: latest
+        env:
+          GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN:-}" ]; then
+            echo "::error::SOURCE_REPO_TOKEN secret is not set — cannot read the private gyuv/RaY-World releases API. Add a PAT with read access to that repo as a repo secret named SOURCE_REPO_TOKEN."
+            exit 1
+          fi
+          release=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/gyuv/RaY-World/releases/latest")
+
+          tag=$(echo "$release" | jq -r '.tag_name')
+          apk_asset_url=$(echo "$release" | jq -r '.assets[] | select(.name=="app-universal.apk") | .url')
+          version_asset_url=$(echo "$release" | jq -r '.assets[] | select(.name=="version.json") | .url')
+          apk_size=$(echo "$release" | jq -r '.assets[] | select(.name=="app-universal.apk") | .size')
+
+          if [ -z "$apk_asset_url" ] || [ "$apk_asset_url" = "null" ]; then
+            echo "::error::No app-universal.apk asset found on the latest gyuv/RaY-World release ($tag)."
+            exit 1
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "apk_asset_url=$apk_asset_url" >> "$GITHUB_OUTPUT"
+          echo "version_asset_url=$version_asset_url" >> "$GITHUB_OUTPUT"
+          echo "apk_size=$apk_size" >> "$GITHUB_OUTPUT"
+
+      - name: Check whether this version is already mirrored
+        id: check
+        run: |
+          set -euo pipefail
+          current_tag=""
+          if [ -f downloads/version.json ]; then
+            current_tag=$(jq -r '.sourceTag // empty' downloads/version.json || true)
+          fi
+          if [ "$current_tag" = "${{ steps.latest.outputs.tag }}" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download new APK + version.json
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p downloads
+          curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/octet-stream" \
+            -o downloads/app-universal.apk \
+            "${{ steps.latest.outputs.apk_asset_url }}"
+
+          if [ -n "${{ steps.latest.outputs.version_asset_url }}" ] && [ "${{ steps.latest.outputs.version_asset_url }}" != "null" ]; then
+            curl -fsSL \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/octet-stream" \
+              -o downloads/version.json.upstream \
+              "${{ steps.latest.outputs.version_asset_url }}"
+          else
+            echo '{}' > downloads/version.json.upstream
+          fi
+
+          jq --arg tag "${{ steps.latest.outputs.tag }}" \
+             --arg syncedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+             '. + {sourceTag: $tag, mirroredAt: $syncedAt}' \
+             downloads/version.json.upstream > downloads/version.json
+          rm -f downloads/version.json.upstream
+
+      - name: Update page config (version + size)
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          version_name=$(jq -r '.versionName // ("${{ steps.latest.outputs.tag }}" | ltrimstr("v"))' downloads/version.json)
+          size_bytes=${{ steps.latest.outputs.apk_size }}
+          size_mb=$(awk "BEGIN { printf \"%.1f\", $size_bytes/1024/1024 }")
+
+          sed -i "s|const APP_VERSION = \".*\";|const APP_VERSION = \"$version_name\";|" index.html
+          sed -i "s|const APP_SIZE = \".*\";|const APP_SIZE = \"~ ${size_mb} MB\";|" index.html
+
+      - name: Commit and push
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/app-universal.apk downloads/version.json index.html
+          git commit -m "chore: sync app-universal.apk from RaY-World ${{ steps.latest.outputs.tag }}"
+          git push
